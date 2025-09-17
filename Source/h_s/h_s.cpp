@@ -3,4 +3,4 @@
 #include "h_s.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, h_s, "h_s" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, h_s, "h_s");

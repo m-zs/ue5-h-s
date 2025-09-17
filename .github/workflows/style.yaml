@@ -1,0 +1,23 @@
+name: Style check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check-formatting:
+    name: Check C++ Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Check formatting
+        run: find Source/ -name '*.h' -o -name '*.cpp' -exec clang-format -n -style=file {} +
