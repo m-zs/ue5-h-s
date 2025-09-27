@@ -2,6 +2,9 @@
 
 #include "AsCharacter.h"
 
+#include "CharacterClassInfo.h"
+#include "h_s/Lib/AbilitySystemLibrary.h"
+
 // Sets default values
 AAsCharacter::AAsCharacter()
 {
@@ -13,9 +16,12 @@ AAsCharacter::AAsCharacter()
 void AAsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	SetupCharacter();
 }
 
-void AAsCharacter::SetupCharacter() {}
+void AAsCharacter::SetupCharacter()
+{
+}
 
 // Called every frame
 void AAsCharacter::Tick(float DeltaTime)
