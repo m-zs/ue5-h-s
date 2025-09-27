@@ -16,7 +16,7 @@ AStandaloneCharacter::AStandaloneCharacter()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UHsAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 }
 
 // Called when the game starts or when spawned
@@ -32,13 +32,9 @@ void AStandaloneCharacter::SetupCharacter()
 	check(AbilitySystemComponent);
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-	
+
+	if (!HasAuthority()) return;
 	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
-	if (!GameMode->CharacterClassInfoData)
-	{
-		UE_LOG(LogTemp, Error, TEXT("CharacterClassInfoData not found"));
-		return;
-	}
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
 }
 

@@ -16,12 +16,14 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+// Server
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	SetupCharacter();
 }
 
+// Client
 void APlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
@@ -37,12 +39,10 @@ void APlayerCharacter::SetupCharacter()
 	AbilitySystemComponent = State->GetAbilitySystemComponent();
 	AttributeSet = State->GetAttributeSet();
 
-	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
-	if (!GameMode->CharacterClassInfoData)
-	{
-		UE_LOG(LogTemp, Error, TEXT("CharacterClassInfoData not found"));
+	if (!HasAuthority())
 		return;
-	}
+	UE_LOG(LogTemp, Log, TEXT("SetupCharacter"));
+	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetCurrentHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data) {
