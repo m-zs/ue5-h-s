@@ -2,9 +2,6 @@
 
 #include "AsCharacter.h"
 
-#include "CharacterClassInfo.h"
-#include "h_s/Lib/AbilitySystemLibrary.h"
-
 // Sets default values
 AAsCharacter::AAsCharacter()
 {

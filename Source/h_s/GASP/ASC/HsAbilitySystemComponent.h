@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "h_s/GASP/Attributes/HsAttributeSet.h"
 #include "HsAbilitySystemComponent.generated.h"
 
 UCLASS()
 class H_S_API UHsAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+	TObjectPtr<UHsAttributeSet>&& GetAttributeSet();
 };

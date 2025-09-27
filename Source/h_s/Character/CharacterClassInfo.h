@@ -9,7 +9,7 @@
 class UGameplayAbility;
 class UGameplayEffect;
 
-UENUM(BlueprintType)
+UENUM(BlueprintType, Blueprintable)
 enum class ECharacterClass : uint8
 {
 	Warrior

@@ -24,10 +24,10 @@ public:
 
 	UHsAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
 
-	UPROPERTY(Blueprintable, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	TArray<UGameplayEffect*> GameplayEffects;
 
-	UPROPERTY(blueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	ECharacterClass CharacterClass;
 
 protected:
