@@ -1,8 +1,13 @@
 // All rights reserved. No permission is granted to use, copy, modify, or distribute this software for any purpose without explicit written permission from the author.
 
 #include "PlayerCharacter.h"
+#include "CharacterClassInfo.h"
+#include "h_s/HSGameModeBase.h"
 #include "h_s/Core/HsPlayerState.h"
 #include "h_s/GASP/ASC/HsAbilitySystemComponent.h"
+#include "h_s/GASP/Attributes/HsAttributeSet.h"
+#include "h_s/Lib/AbilitySystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -31,4 +36,16 @@ void APlayerCharacter::SetupCharacter()
 	State->GetAbilitySystemComponent()->InitAbilityActorInfo(State, this);
 	AbilitySystemComponent = State->GetAbilitySystemComponent();
 	AttributeSet = State->GetAttributeSet();
+
+	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
+	if (!GameMode->CharacterClassInfoData)
+	{
+		UE_LOG(LogTemp, Error, TEXT("CharacterClassInfoData not found"));
+		return;
+	}
+	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetCurrentHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data) {
+		OnHealthChanged.Broadcast(Data.NewValue);
+	});
 }

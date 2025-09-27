@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "AsCharacter.generated.h"
 
+enum class ECharacterClass : uint8;
+class UGameplayEffect;
 class UHsAbilitySystemComponent;
 class UHsAttributeSet;
 
@@ -21,6 +23,12 @@ public:
 	UHsAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	UHsAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
+
+	UPROPERTY(Blueprintable, EditAnywhere)
+	TArray<UGameplayEffect*> GameplayEffects;
+
+	UPROPERTY(blueprintReadWrite)
+	ECharacterClass CharacterClass;
 
 protected:
 	// Called when the game starts or when spawned

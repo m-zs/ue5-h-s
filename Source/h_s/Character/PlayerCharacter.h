@@ -6,6 +6,8 @@
 #include "AsCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float, NewHealth);
+
 UCLASS()
 class H_S_API APlayerCharacter : public AAsCharacter
 {
@@ -13,6 +15,9 @@ class H_S_API APlayerCharacter : public AAsCharacter
 
 public:
 	APlayerCharacter();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
 
 protected:
 	virtual void SetupCharacter() override;

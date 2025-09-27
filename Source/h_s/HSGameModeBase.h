@@ -6,8 +6,15 @@
 #include "GameFramework/GameModeBase.h"
 #include "HSGameModeBase.generated.h"
 
+class UCharacterClassInfoData;
+struct FCharacterClassInfo;
+
 UCLASS()
 class H_S_API AHSGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="GameModeBase")
+	TObjectPtr<UCharacterClassInfoData> CharacterClassInfoData;
 };
