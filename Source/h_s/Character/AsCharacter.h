@@ -32,6 +32,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	ECharacterClass CharacterClass;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
+	int TeamID = 0;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

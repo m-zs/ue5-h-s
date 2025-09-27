@@ -40,8 +40,10 @@ void APlayerCharacter::SetupCharacter()
 	AttributeSet = State->GetAttributeSet();
 
 	if (!HasAuthority())
+	{
 		return;
-	UE_LOG(LogTemp, Log, TEXT("SetupCharacter"));
+	}
+
 	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
 
