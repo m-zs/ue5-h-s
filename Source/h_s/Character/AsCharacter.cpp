@@ -13,7 +13,6 @@ AAsCharacter::AAsCharacter()
 void AAsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	SetupCharacter();
 }
 
 void AAsCharacter::SetupCharacter()

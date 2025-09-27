@@ -20,8 +20,10 @@ public:
 	// Sets default values for this character's properties
 	AAsCharacter();
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
 	UHsAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
 	UHsAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")

@@ -12,4 +12,6 @@ AHsPlayerState::AHsPlayerState()
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UHsAttributeSet>("AttributeSet");
+
+	SetNetUpdateFrequency(100);
 }
