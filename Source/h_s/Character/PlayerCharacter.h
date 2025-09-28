@@ -16,6 +16,8 @@ class H_S_API APlayerCharacter : public AAsCharacter
 public:
 	APlayerCharacter();
 
+	virtual UHsAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
 

@@ -17,6 +17,8 @@ AStandaloneCharacter::AStandaloneCharacter()
 	AbilitySystemComponent = CreateDefaultSubobject<UHsAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	AttributeSet = CreateDefaultSubobject<UHsAttributeSet>("AttributeSet");
 }
 
 // Called when the game starts or when spawned
@@ -33,7 +35,11 @@ void AStandaloneCharacter::SetupCharacter()
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 
-	if (!HasAuthority()) return;
+	if (!HasAuthority())
+	{
+		return;
+	}
+
 	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
 }
@@ -42,6 +48,12 @@ void AStandaloneCharacter::SetupCharacter()
 void AStandaloneCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AStandaloneCharacter::Die(const FVector& HitImpulse)
+{
+	Super::Die(HitImpulse);
+	OnDeath.Broadcast(HitImpulse);
 }
 
 // Called to bind functionality to input

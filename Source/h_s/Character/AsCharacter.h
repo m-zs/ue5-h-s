@@ -3,16 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CombatInterface.h"
 #include "GameFramework/Character.h"
 #include "AsCharacter.generated.h"
 
+class UGameplayAbility;
 enum class ECharacterClass : uint8;
 class UGameplayEffect;
 class UHsAbilitySystemComponent;
 class UHsAttributeSet;
 
 UCLASS()
-class H_S_API AAsCharacter : public ACharacter
+class H_S_API AAsCharacter : public ACharacter, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -24,16 +26,25 @@ public:
 	UHsAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
-	UHsAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
+	virtual UHsAbilitySystemComponent* GetAbilitySystemComponent() const;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	TArray<UGameplayEffect*> GameplayEffects;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
+	TArray<TSubclassOf<UGameplayAbility>> GameplayAbilities;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	ECharacterClass CharacterClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	int TeamID = 0;
+
+	bool bDead = false;
+
+	virtual bool IsDead_Implementation() const override { return bDead; }
+
+	virtual void Die(const FVector& HitImpulse) override;
 
 protected:
 	// Called when the game starts or when spawned
