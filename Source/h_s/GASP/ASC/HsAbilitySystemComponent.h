@@ -11,5 +11,9 @@ UCLASS()
 class H_S_API UHsAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	TObjectPtr<UHsAttributeSet>&& GetAttributeSet();
+	TObjectPtr<UHsAttributeSet>& GetAttributeSet();
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void AddAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities);
 };

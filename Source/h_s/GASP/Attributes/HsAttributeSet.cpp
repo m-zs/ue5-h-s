@@ -3,6 +3,7 @@
 #include "HsAttributeSet.h"
 #include "Net/UnrealNetwork.h"
 #include "GameplayEffectExtension.h"
+#include "h_s/Character/CombatInterface.h"
 
 UHsAttributeSet::UHsAttributeSet() {}
 
@@ -70,6 +71,13 @@ void UHsAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 
 	if (Data.EvaluatedData.Attribute == GetCurrentHealthAttribute())
 	{
+		if (GetCurrentHealth() <= 0)
+		{
+			if (Data.Target.GetAvatarActor()->Implements<UCombatInterface>())
+			{
+				Cast<ICombatInterface>(Data.Target.GetAvatarActor())->Die(*new FVector());
+			}
+		}
 		SetCurrentHealth(FMath::Clamp(GetCurrentHealth(), 0.f, GetMaxHealth()));
 	}
 }

@@ -6,7 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "HsProjectile.generated.h"
 
-class UGameplayEffect;
 class UProjectileMovementComponent;
 class USphereComponent;
 
@@ -27,8 +26,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Lifespan = 15;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UGameplayEffect> GameplayEffectClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
+	TSubclassOf<class UGameplayEffect> GameplayEffectClass;
+
+	virtual void SpawnProjectile();
 
 protected:
 	// Called when the game starts or when spawned

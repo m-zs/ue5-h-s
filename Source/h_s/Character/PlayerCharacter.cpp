@@ -16,6 +16,11 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+UHsAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 // Server
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
@@ -47,7 +52,9 @@ void APlayerCharacter::SetupCharacter()
 	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetCurrentHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data) {
+	AbilitySystemComponent->AddAbilities(GameplayAbilities);
+	
+	/*AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetCurrentHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data) {
 		OnHealthChanged.Broadcast(Data.NewValue);
-	});
+	});*/
 }

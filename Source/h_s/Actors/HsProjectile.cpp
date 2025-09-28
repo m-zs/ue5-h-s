@@ -6,6 +6,8 @@
 #include "h_s/Character/AsCharacter.h"
 #include "h_s/GASP/ASC/HsAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "h_s/h_s.h"
 
 // Sets default values
 AHsProjectile::AHsProjectile()
@@ -17,11 +19,28 @@ AHsProjectile::AHsProjectile()
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
 	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	/*Sphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	Sphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Block);*/
+	//Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	//Sphere->SetCollisionResponseToChannel(ECC_Projectile, ECR_Ignore);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("UProjectileMovementComponent");
 	ProjectileMovementComponent->InitialSpeed = 550;
 	ProjectileMovementComponent->MaxSpeed = 550;
 	ProjectileMovementComponent->ProjectileGravityScale = 0;
+}
+
+void AHsProjectile::SpawnProjectile()
+{
+	/*AActor* AvatarActor = AbilityActorInfo->AvatarActor.Get();
+	if (!AvatarActor)
+	{
+		return;
+	}
+
+	// Get the avatar's position and rotation
+	FVector AvatarPosition = AvatarActor->GetActorLocation();
+	FRotator AvatarRotation = AvatarActor->GetActorRotation();*/
 }
 
 // Called when the game starts or when spawned
@@ -40,8 +59,13 @@ void AHsProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		return;
 	}
 
-	const AAsCharacter* Target= Cast<AAsCharacter>(OtherActor);
-	const AAsCharacter* Initiator = Target;
+	const AAsCharacter* Target = Cast<AAsCharacter>(OtherActor);
+	const AAsCharacter* Initiator = Cast<AAsCharacter>(GetOwner());
+
+	if (!Initiator || !Target)
+	{
+		return;
+	}
 
 	/*if (Initiator->TeamID == Target->TeamID)
 	{
@@ -50,9 +74,9 @@ void AHsProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 
 	FGameplayEffectContextHandle EffectContextHandle = Initiator->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(Initiator->GetAbilitySystemComponent()->GetAvatarActor());
-
+	
 	const FGameplayEffectSpecHandle SpecHandle = Initiator->GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, 1, EffectContextHandle);
-
+	
 	Target->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 }
 
