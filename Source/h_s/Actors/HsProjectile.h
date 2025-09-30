@@ -29,8 +29,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	TSubclassOf<class UGameplayEffect> GameplayEffectClass;
 
-	virtual void SpawnProjectile();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

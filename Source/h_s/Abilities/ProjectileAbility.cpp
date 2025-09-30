@@ -3,17 +3,20 @@
 #include "ProjectileAbility.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "h_s/Actors/HsProjectile.h"
 
-void UProjectileAbility::SpawnProjectile(const TSubclassOf<AHsProjectile> ProjectileClass) const
+void UProjectileAbility::SpawnProjectile(const TSubclassOf<AHsProjectile> ProjectileClass, const FRotator Rotation) const
 {
+	if (!GetAvatarActorFromActorInfo()->HasAuthority())
+	{
+		return;
+	}
 	AActor* AvatarActor = AbilityActorInfo->AvatarActor.Get();
 	if (!AvatarActor) return;
 
 	const FVector AvatarPosition = AvatarActor->GetActorLocation();
-	const FRotator AvatarRotation = AvatarActor->GetActorRotation();
-
-	const FTransform SpawnTransform(AvatarRotation, AvatarPosition);
+	const FTransform SpawnTransform(Rotation, AvatarPosition);
 
 	const auto Projectile = GetWorld()->SpawnActorDeferred<AHsProjectile>(
 		ProjectileClass,

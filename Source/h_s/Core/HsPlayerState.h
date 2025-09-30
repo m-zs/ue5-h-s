@@ -21,6 +21,14 @@ public:
 	UHsAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	UHsAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
+	
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	FRotator ReplicatedRotation;
+	
+	void UpdateReplicatedRotation(const FRotator& NewRotation);
+	
+	UFUNCTION(Server, Reliable)
+	void ServerUpdateRotation(const FRotator& NewRotation);
 
 protected:
 	UPROPERTY(VisibleAnywhere)

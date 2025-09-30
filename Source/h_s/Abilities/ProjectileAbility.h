@@ -14,5 +14,5 @@ class H_S_API UProjectileAbility : public UHsDamageAbility
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	void SpawnProjectile(TSubclassOf<AHsProjectile> ProjectileClass) const;
+	void SpawnProjectile(TSubclassOf<AHsProjectile> ProjectileClass, FRotator Rotation) const;
 };
