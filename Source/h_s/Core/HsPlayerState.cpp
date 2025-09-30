@@ -4,6 +4,7 @@
 #include "AbilitySystemComponent.h"
 #include "h_s/GASP/ASC/HsAbilitySystemComponent.h"
 #include "h_s/GASP/Attributes/HsAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 
 AHsPlayerState::AHsPlayerState()
 {
@@ -14,4 +15,27 @@ AHsPlayerState::AHsPlayerState()
 	AttributeSet = CreateDefaultSubobject<UHsAttributeSet>("AttributeSet");
 
 	SetNetUpdateFrequency(100);
+}
+
+void AHsPlayerState::UpdateReplicatedRotation(const FRotator& NewRotation)
+{
+	if (HasAuthority())
+	{
+		ReplicatedRotation = NewRotation;
+	}
+	else
+	{
+		ServerUpdateRotation(NewRotation);
+	}
+}
+
+void AHsPlayerState::ServerUpdateRotation_Implementation(const FRotator& NewRotation)
+{
+	ReplicatedRotation = NewRotation;
+}
+
+void AHsPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AHsPlayerState, ReplicatedRotation);
 }

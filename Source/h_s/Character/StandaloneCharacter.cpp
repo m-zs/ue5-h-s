@@ -19,6 +19,12 @@ AStandaloneCharacter::AStandaloneCharacter()
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
 	AttributeSet = CreateDefaultSubobject<UHsAttributeSet>("AttributeSet");
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
+	
+	TeamID = 99;
 }
 
 // Called when the game starts or when spawned

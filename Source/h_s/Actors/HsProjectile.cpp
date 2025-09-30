@@ -15,7 +15,8 @@ AHsProjectile::AHsProjectile()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
-
+	AActor::SetReplicateMovement(true);
+	
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
 	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -28,19 +29,7 @@ AHsProjectile::AHsProjectile()
 	ProjectileMovementComponent->InitialSpeed = 550;
 	ProjectileMovementComponent->MaxSpeed = 550;
 	ProjectileMovementComponent->ProjectileGravityScale = 0;
-}
-
-void AHsProjectile::SpawnProjectile()
-{
-	/*AActor* AvatarActor = AbilityActorInfo->AvatarActor.Get();
-	if (!AvatarActor)
-	{
-		return;
-	}
-
-	// Get the avatar's position and rotation
-	FVector AvatarPosition = AvatarActor->GetActorLocation();
-	FRotator AvatarRotation = AvatarActor->GetActorRotation();*/
+	ProjectileMovementComponent->bRotationFollowsVelocity = true;
 }
 
 // Called when the game starts or when spawned
