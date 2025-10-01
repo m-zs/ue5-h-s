@@ -46,6 +46,9 @@ public:
 
 	virtual void Die(const FVector& HitImpulse) override;
 
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastHandleDeath(const FVector& HitImpulse);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

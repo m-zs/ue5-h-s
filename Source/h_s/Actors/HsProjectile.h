@@ -18,8 +18,6 @@ public:
 	// Sets default values for this actor's properties
 	AHsProjectile();
 
-	virtual void Tick(float DeltaTime) override;
-
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;
 

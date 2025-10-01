@@ -56,10 +56,10 @@ void AHsProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		return;
 	}
 
-	/*if (Initiator->TeamID == Target->TeamID)
+	if (Initiator->TeamID == Target->TeamID)
 	{
 		return;
-	}*/
+	}
 
 	FGameplayEffectContextHandle EffectContextHandle = Initiator->GetAbilitySystemComponent()->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(Initiator->GetAbilitySystemComponent()->GetAvatarActor());
@@ -67,10 +67,4 @@ void AHsProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	const FGameplayEffectSpecHandle SpecHandle = Initiator->GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, 1, EffectContextHandle);
 	
 	Target->GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
-}
-
-// Called every frame
-void AHsProjectile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }

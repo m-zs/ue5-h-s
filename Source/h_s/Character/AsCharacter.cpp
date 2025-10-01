@@ -3,6 +3,7 @@
 #include "AsCharacter.h"
 
 #include "GameplayEffect.h"
+#include "Components/CapsuleComponent.h"
 #include "h_s/GASP/ASC/HsAbilitySystemComponent.h"
 
 // Sets default values
@@ -19,11 +20,19 @@ UHsAbilitySystemComponent* AAsCharacter::GetAbilitySystemComponent() const
 
 void AAsCharacter::Die(const FVector& HitImpulse)
 {
+	if (bDead) return;
+	MulticastHandleDeath(HitImpulse);
+}
+
+void AAsCharacter::MulticastHandleDeath_Implementation(const FVector& HitImpulse)
+{
 	GetMesh()->SetSimulatePhysics(true);
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 	GetMesh()->SetEnableGravity(true);
 	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
 	GetMesh()->AddImpulse(HitImpulse, NAME_None, true);
+
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	bDead = true;
 

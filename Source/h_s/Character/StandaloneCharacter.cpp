@@ -48,6 +48,8 @@ void AStandaloneCharacter::SetupCharacter()
 
 	const AHSGameModeBase* GameMode = Cast<AHSGameModeBase>(UGameplayStatics::GetGameMode(this));
 	UAbilitySystemLibrary::InitializeDefaultAttributes(1, AbilitySystemComponent, GameMode->CharacterClassInfoData->CharacterClassInfo[CharacterClass]);
+
+	AbilitySystemComponent->AddAbilities(GameplayAbilities);
 }
 
 // Called every frame
