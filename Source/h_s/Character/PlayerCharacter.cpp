@@ -8,12 +8,14 @@
 #include "h_s/GASP/Attributes/HsAttributeSet.h"
 #include "h_s/Lib/AbilitySystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
 }
 
 UHsAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const

@@ -50,6 +50,38 @@ public:
 	FGameplayAttributeData Intelligence;
 	ATTRIBUTE_ACCESSORS(UHsAttributeSet, Intelligence)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_ElementalResistance)
+	FGameplayAttributeData ElementalResistance;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, ElementalResistance)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_MaxElementalResistance)
+	FGameplayAttributeData MaxElementalResistance;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, MaxElementalResistance)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_Armour)
+	FGameplayAttributeData Armour;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, Armour)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_ElementalDamage)
+	FGameplayAttributeData ElementalDamage;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, ElementalDamage)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_PhysicalDamage)
+	FGameplayAttributeData PhysicalDamage;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, PhysicalDamage)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_AreaOfEffect)
+	FGameplayAttributeData AreaOfEffect;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, AreaOfEffect)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_MovementSpeed)
+	FGameplayAttributeData MovementSpeed;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, MovementSpeed)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing = OnRep_ActionSpeed)
+	FGameplayAttributeData ActionSpeed;
+	ATTRIBUTE_ACCESSORS(UHsAttributeSet, ActionSpeed)
+
 protected:
 	UFUNCTION()
 	void OnRep_CurrentHealth(const FGameplayAttributeData& OldCurrentHealth) const;
@@ -68,6 +100,30 @@ protected:
 
 	UFUNCTION()
 	void OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const;
+
+	UFUNCTION()
+	void OnRep_ElementalResistance(const FGameplayAttributeData& OldElementalResistance) const;
+
+	UFUNCTION()
+	void OnRep_MaxElementalResistance(const FGameplayAttributeData& OldMaxElementalResistance) const;
+
+	UFUNCTION()
+	void OnRep_Armour(const FGameplayAttributeData& OldArmour) const;
+
+	UFUNCTION()
+	void OnRep_ElementalDamage(const FGameplayAttributeData& OldElementalDamage) const;
+
+	UFUNCTION()
+	void OnRep_PhysicalDamage(const FGameplayAttributeData& OldPhysicalDamage) const;
+
+	UFUNCTION()
+	void OnRep_AreaOfEffect(const FGameplayAttributeData& OldAreaOfEffect) const;
+
+	UFUNCTION()
+	void OnRep_MovementSpeed(const FGameplayAttributeData& OldMovementSpeed) const;
+
+	UFUNCTION()
+	void OnRep_ActionSpeed(const FGameplayAttributeData& OldActionSpeed) const;
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
